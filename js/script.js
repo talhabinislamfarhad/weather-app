@@ -12,7 +12,7 @@ const cityName = document.querySelector('#city-name');
 const imgIcon = document.querySelector('#img');
 
 // Search function
-searchBtn.addEventListener('click', function (name) {
+searchBtn.addEventListener('click', function (w) {
   fetch('https://api.openweathermap.org/data/2.5/weather?q=' + searchInput.value + '&appid=50a7aa80fa492fa92e874d23ad061374&units=metric')
     .then(response => response.json())
     .then(data => {
@@ -38,10 +38,10 @@ searchBtn.addEventListener('click', function (name) {
 })
 
 //Weather By Geolocation
-navigator.geolocation.getCurrentPosition(function (success) {
-  const lat = success.coords.latitude
-  const lon = success.coords.longitude
-  fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=2f4eaae5313620301797f4a8608391fb`)
+navigator.geolocation.getCurrentPosition(function (data) {
+  const lat = data.coords.latitude
+  const lon = data.coords.longitude
+  fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=50a7aa80fa492fa92e874d23ad061374&units=metric`)
     .then(Response => Response.json())
     .then(data => {
       let tempCelValue = data['main']['temp'];
