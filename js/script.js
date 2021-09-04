@@ -36,3 +36,29 @@ searchBtn.addEventListener('click', function (name) {
 
     })
 })
+
+//Weather By Geolocation
+navigator.geolocation.getCurrentPosition(function (success) {
+  const lat = success.coords.latitude
+  const lon = success.coords.longitude
+  fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=2f4eaae5313620301797f4a8608391fb`)
+    .then(Response => Response.json())
+    .then(data => {
+      let tempCelValue = data['main']['temp'];
+      let tempFarValue = data['main']['temp'];
+      let nameValue = data['name'];
+      let url = `http://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`;
+      imgIcon.setAttribute('src', url);
+      let countryvalue = data['sys']['country'];
+      let descValue = data['weather'][0]['main'];
+
+
+      cityName.innerHTML = "Weather in " + nameValue + " city";
+      desc.innerHTML = descValue;
+      tempCel.innerHTML = parseInt(tempCelValue) + "°C";
+      divider.innerHTML = "/";
+      tempFar.innerHTML = parseInt((tempFarValue * 9 / 5) + 32) + "°F";
+      country.innerHTML = "Country: " + countryvalue;
+    })
+})
+
